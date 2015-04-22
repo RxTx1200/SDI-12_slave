@@ -117,6 +117,7 @@ void interrupt low_priority low_isr(void) {
 
 /*******************************Main function ********************************/
 void main() {
+    OSCCON = 0x60;
     int temp;
     intialize();
     temp = PORTB;
@@ -164,9 +165,9 @@ void MarkingFn(void) {
     MARKING_TIMEOUT_COMPARE_REG = MARKING_VALUE_D;
     MARKING_TIMEOUT_COMPARE_IE = 1;
     //sdi_usart_RXIE(1);
-   // sdi_usart_RXEN(1);
-   // sdi_usart_TXEN(0);
-   //MARKING_TIMEOUT_TIMER_EN = 0;
+    //sdi_usart_RXEN(1);
+    //sdi_usart_TXEN(0);
+    //MARKING_TIMEOUT_TIMER_EN = 0;
     INTERRUPT_ENABLE(1)   
     while (1) {
         asm("NOP");
@@ -210,6 +211,7 @@ void AbortFn()
     i = 0;
     /* Setting the value buffer to send back for next D0 command
      */
+    //sprintf(valueBuffer, "%c%s%c%c", Address, "+0+0", 0x0D, 0x0A);
     valueBuffer[i++] = Address;
     valueBuffer[i++] = '+';
     valueBuffer[i++] = '0';

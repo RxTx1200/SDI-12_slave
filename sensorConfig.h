@@ -1,4 +1,3 @@
-
 #ifndef SENSORCONFIG_H
 #define	SENSORCONFIG_H
 
@@ -39,14 +38,14 @@ volatile char AddressSet [SENNO]={ '0' //default ;no measurement
                                    ,'g' //KDS-042
 #endif
 #if SHT15
-                                  ,'j' //SHT-15
-                                  //,'l' //SHT-15
+                                   ,'j' //SHT-15
+                                 //,'k' //SHT-15
 #endif
 #if LW
                                    ,'m' //LeafWetness
 #endif
 #if DS18B20
-                                   ,'p' //DHT11
+                                   ,'p' //Soil Temperature
 #endif
 #if GYPSUM
                                    ,'s' //GYPSUM
@@ -72,7 +71,7 @@ char MeasureResponse [SENNO][5]={ "\0"
                                   ,"0031\0"  //LeafWetness
 #endif
 #if DS18B20
-                                  ,"0031\0"  //DHT11
+                                  ,"0041\0"  //DHT11
 #endif
 #if GYPSUM
                                   ,"0051\0"  //GYPSUM

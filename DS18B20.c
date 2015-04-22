@@ -1,6 +1,4 @@
 #include"Includes.h"
-#include <plib/delays.h>
-
 #define SET_BIT(x,n)  x |= 1<<n
 #define CLR_BIT(x,n)  x  &= ~(1<<n)
 #define DQPIN_MAKEINPUT     TRISB0 =1
@@ -55,8 +53,16 @@ uint8_t DS18B20_read(uint16_t* Data) {
     TRISB0 = 0;
     LATB0 = 1;
     Timer3_init();
-    if (DS18B20readTemperature(Data) == CRC_ERROR) {
-        Data[0] = 0xffee;
+    Timer3_usdelay(65535);
+    while (1){
+        retValue = DS18B20readTemperature(Data);
+        if (retValue == 0){
+            break;
+        }
+        else if (retValue == CRC_ERROR ){
+            Data[0] = 0xffee;
+            break;
+        }
     }
     return 1;
 }
@@ -129,8 +135,7 @@ void readAddress(unsigned char *ROM_ADDR) {
         ROM_ADDR[j] = value;
     }
 }
- */
-
+*/
 /*
  * Return is useful only verify is Set
  * Return 0 on default value match else
@@ -157,8 +162,8 @@ uint8_t readScratchPadData(bool verify, unsigned char *Scratch_Pad) {
     }
     if (verifyCRC(Scratch_Pad, 9))
         return CRC_ERROR;
-    // if (verify && !(Scratch_Pad[0] == TEMPERATURE_LSB) && (Scratch_Pad[1] == TEMPERATURE_MSB) && (Scratch_Pad[5] == BYTE_5) && (Scratch_Pad[7] == BYTE_7))
-    //     return DEFAULT_ERROR;
+     if ((Scratch_Pad[0] == TEMPERATURE_LSB) && (Scratch_Pad[1] == TEMPERATURE_MSB) && (Scratch_Pad[5] == BYTE_5) && (Scratch_Pad[7] == BYTE_7))
+         return DEFAULT_ERROR;
     return 0;
 }
 

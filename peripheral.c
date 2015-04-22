@@ -50,8 +50,7 @@ void intialize(void) {
 
 /* Function to configure Interrupts and priority
  */
-void interrupt_config()
-{
+void interrupt_config() {
     BREAK_IOC_ENABLE = 1; //Enabling the PORTB interrupt-on-change
     BREAK_IOCPIN_ENABLE = 1; //Enabling the PORTB pin for interrupt on change
     BREAK_IP = 1; //setting the PORTB interrupt-on-change high priority
@@ -73,7 +72,7 @@ void interrupt_config()
 }
 
 void update_eeprom() {
-    uint8_t i = 0;
+    uint8_t i = 0,temp;
     /* Reading the SDI12 Address*/
     Busy_eep();
     if (Read_b_eep(EEPROM_SENNO) != SENNO) {
@@ -87,7 +86,10 @@ void update_eeprom() {
     } else {
         while (i < SENNO) {
             Busy_eep();
-            AddressSet[i] = Read_b_eep(EEPROM_ADDBYTE + i);
+            temp = Read_b_eep(EEPROM_ADDBYTE + i);
+            if (temp > 96 && temp < 123) {
+                AddressSet[i] = temp;
+            }
             i++;
         }
     }

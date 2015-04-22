@@ -6,10 +6,10 @@ enum {
 };
 
 #define CRC 1
-#define _SHT15_DAT (TRISAbits.TRISA3)
-#define DATA (PORTAbits.RA3)
-#define _SHT15_SCK (LATAbits.LATA4)
-#define SET_SHT15_SCK (TRISAbits.TRISA4)
+#define _SHT15_DAT (TRISCbits.TRISC3)
+#define DATA (PORTCbits.RC3)
+#define _SHT15_SCK (LATCbits.LATC4)
+#define SET_SHT15_SCK (TRISCbits.TRISC4)
 
 #define noACK 0
 #define ACK 1

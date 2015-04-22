@@ -112,8 +112,8 @@ void commandResponse(void) {
     i = 0;
     switch (cmdtype) {
         case ADDRESS_QUERY:
-            // responseBuffer[i++]=Address;
-            strncpy(responseBuffer, AddressSet, ((SENNO) - 1));
+            responseBuffer[i++]=Address;
+            //strncpy(responseBuffer, AddressSet, ((SENNO) - 1));
             i = (SENNO) - 1;
             break;
         case ADDRESS_CHANGE:
